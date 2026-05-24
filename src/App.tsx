@@ -1,4 +1,5 @@
 import "./App.css";
+import { Analytics } from "@vercel/analytics/react";
 
 const RingLogo = ({ size = 96 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -124,6 +125,7 @@ export default function App() {
           <span className="footer-copy">Copyright © 2026 Gramo. All rights reserved.</span>
         </div>
       </footer>
+      <Analytics />
     </div>
   );
 }
