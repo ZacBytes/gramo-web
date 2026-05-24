@@ -1,151 +1,135 @@
-import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
-function App() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [submitted, setSubmitted] = useState(false);
-  const [email, setEmail] = useState("");
+const RingLogo = ({ size = 96 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="48" cy="48" r="38" stroke="white" strokeWidth="5" strokeOpacity="0.08"/>
+    <circle
+      cx="48" cy="48" r="38"
+      stroke="#FF6B00" strokeWidth="5" strokeLinecap="round"
+      strokeDasharray="179" strokeDashoffset="45"
+      transform="rotate(-90 48 48)"
+    />
+    <text x="48" y="56" textAnchor="middle"
+      fontFamily="-apple-system, 'SF Pro Rounded', 'Helvetica Neue', sans-serif"
+      fontSize="38" fontWeight="700" fill="white" letterSpacing="-1">G</text>
+  </svg>
+);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    let animId: number;
+const features = [
+  {
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M14 4C8.477 4 4 8.477 4 14s4.477 10 10 10 10-4.477 10-10S19.523 4 14 4z" stroke="#FF6B00" strokeWidth="1.5"/>
+        <path d="M10 14.5l2.5 2.5 5.5-5.5" stroke="#FF6B00" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    title: "Just talk",
+    body: "Tell Gramo what you ate. It understands context, brands, portion sizes, and recipes — no manual entry.",
+  },
+  {
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <rect x="5" y="7" width="18" height="14" rx="2" stroke="#FF6B00" strokeWidth="1.5"/>
+        <circle cx="14" cy="14" r="3.5" stroke="#FF6B00" strokeWidth="1.5"/>
+        <path d="M10 7V5.5M18 7V5.5" stroke="#FF6B00" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    title: "Photo logging",
+    body: "Point your camera at a meal, nutrition label, or food scale. Gramo reads and logs it instantly.",
+  },
+  {
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M6 20l4-8 4 5 3-4 5 7" stroke="#FF6B00" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <circle cx="22" cy="8" r="2" stroke="#FF6B00" strokeWidth="1.5"/>
+      </svg>
+    ),
+    title: "Smart targets",
+    body: "Built around your body stats and goals. Calories and macros that actually fit your life.",
+  },
+];
 
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const particles = Array.from({ length: 70 }, () => ({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      r: Math.random() * 1.4 + 0.2,
-      dx: (Math.random() - 0.5) * 0.25,
-      dy: (Math.random() - 0.5) * 0.25,
-      alpha: Math.random() * 0.35 + 0.05,
-    }));
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p) => {
-        p.x += p.dx;
-        p.y += p.dy;
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
-        ctx.fill();
-      });
-      animId = requestAnimationFrame(draw);
-    };
-    draw();
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setSubmitted(true);
-      setEmail("");
-    }
-  };
-
+export default function App() {
   return (
-    <div className="root">
-      <canvas ref={canvasRef} className="canvas" />
-      <div className="glow-center" />
-      <div className="glow-orange" />
+    <div className="page">
+      {/* Ambient background */}
+      <div className="bg-noise" />
+      <div className="bg-glow" />
 
-      <main className="main">
-        <div className="logo-wrap">
-          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="40" cy="40" r="32" stroke="white" strokeWidth="4.5" strokeOpacity="0.1"/>
-            <circle
-              cx="40" cy="40" r="32"
-              stroke="#FF6B00" strokeWidth="4.5" strokeLinecap="round"
-              strokeDasharray="151" strokeDashoffset="38"
-              transform="rotate(-90 40 40)"
-            />
-            <text x="40" y="47" textAnchor="middle"
-              fontFamily="-apple-system, 'SF Pro Rounded', 'Helvetica Neue', sans-serif"
-              fontSize="32" fontWeight="700" fill="white">G</text>
-          </svg>
+      {/* Nav */}
+      <nav className="nav">
+        <div className="nav-logo">
+          <RingLogo size={28} />
+          <span className="nav-name">Gramo</span>
+        </div>
+        <span className="nav-badge">Coming to iPhone</span>
+      </nav>
+
+      {/* Hero */}
+      <section className="hero">
+        <div className="hero-logo">
+          <RingLogo size={120} />
         </div>
 
-        <h1 className="wordmark">Gramo</h1>
+        <h1 className="hero-title">
+          Track macros.<br />
+          <em>Just talk.</em>
+        </h1>
 
-        <div className="coming-soon-pill">
-          <span className="pill-dot" />
-          Coming Soon
-        </div>
-
-        <p className="tagline">
-          Track macros by just talking.<br />
-          <span className="tagline-dim">No barcodes. No spreadsheets. Just chat.</span>
+        <p className="hero-sub">
+          Gramo is an AI-powered macro tracker that understands you.<br className="br-desktop" />
+          Describe your meal. It handles the rest.
         </p>
 
-        <div className="feature-row">
-          <div className="feature">
-            <span className="feature-icon">🤖</span>
-            <span>AI-powered logging</span>
-          </div>
-          <div className="feature-sep" />
-          <div className="feature">
-            <span className="feature-icon">📷</span>
-            <span>Photo recognition</span>
-          </div>
-          <div className="feature-sep" />
-          <div className="feature">
-            <span className="feature-icon">🎯</span>
-            <span>Smart macro targets</span>
-          </div>
+        <div className="hero-meta">
+          <AppleLogo />
+          <span>iPhone · iOS 18</span>
+          <span className="dot">·</span>
+          <span>2026</span>
         </div>
+      </section>
 
-        {!submitted ? (
-          <form className="notify-form" onSubmit={handleSubmit}>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
-              className="email-input"
-              required
-            />
-            <button type="submit" className="notify-btn">
-              Notify me
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-          </form>
-        ) : (
-          <div className="success-msg">
-            <span>✓</span> You're on the list — we'll let you know when we launch.
+      {/* Divider */}
+      <div className="section-divider" />
+
+      {/* Features */}
+      <section className="features">
+        <p className="features-eyebrow">Why Gramo</p>
+        <h2 className="features-title">The tracker that gets out of your way.</h2>
+        <div className="features-grid">
+          {features.map((f) => (
+            <div key={f.title} className="feature-card">
+              <div className="feature-icon">{f.icon}</div>
+              <h3 className="feature-name">{f.title}</h3>
+              <p className="feature-body">{f.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Quote */}
+      <section className="quote-section">
+        <blockquote className="quote">
+          "Nutrition tracking done right — intelligent, effortless, and designed for real life."
+        </blockquote>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-inner">
+          <div className="footer-logo">
+            <RingLogo size={20} />
+            <span>Gramo</span>
           </div>
-        )}
-
-        <p className="platform">
-          <svg width="14" height="17" viewBox="0 0 14 17" fill="none" style={{display:"inline",verticalAlign:"middle",marginRight:5}}>
-            <path d="M11.5 8.8c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.8-3.5.8-.7 0-1.8-.8-3-.8C2 3.5 0 4.8 0 7.8c0 1.8.7 3.7 1.6 4.9.8 1.2 1.7 2.3 2.9 2.3 1.1 0 1.6-.7 3-.7 1.4 0 1.8.7 3 .7 1.2 0 2-1 2.8-2.2.9-1.3 1.2-2.6 1.2-2.6-.1 0-2-.8-2-3.4zM9.3 2c.7-.8 1.1-1.9 1-3-.9.1-2.1.7-2.8 1.5-.6.7-1.1 1.8-1 2.8 1 .1 2-.5 2.8-1.3z" fill="white" fillOpacity="0.5"/>
-          </svg>
-          iPhone · iOS 18+
-        </p>
-      </main>
-
-      <footer className="footer">© 2026 Gramo. All rights reserved.</footer>
+          <span className="footer-copy">Copyright © 2026 Gramo. All rights reserved.</span>
+        </div>
+      </footer>
     </div>
   );
 }
 
-export default App;
+const AppleLogo = () => (
+  <svg width="13" height="16" viewBox="0 0 13 16" fill="none" style={{ display: "inline", verticalAlign: "middle" }}>
+    <path d="M10.8 8.3c0-2.1 1.7-3.1 1.8-3.2-1-1.5-2.6-1.7-3.1-1.7-1.3-.1-2.6.8-3.2.8-.7 0-1.7-.7-2.8-.7C1.9 3.5 0 4.7 0 7.5c0 1.7.6 3.4 1.4 4.6.8 1.1 1.6 2.2 2.7 2.2 1.1 0 1.5-.7 2.8-.7 1.3 0 1.7.7 2.8.7 1.1 0 1.8-.9 2.6-2 .8-1.2 1.1-2.4 1.1-2.4 0 0-1.8-.7-1.6-3.1l.2.5zM8.8 2c.6-.8 1-1.8.9-2.7-.9.1-1.9.6-2.6 1.4-.6.7-1 1.7-.9 2.6.9.1 1.9-.5 2.6-1.3z" fill="currentColor" fillOpacity="0.5"/>
+  </svg>
+);
