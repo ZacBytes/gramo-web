@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./App.css";
 
 const RingLogo = ({ size = 96 }: { size?: number }) => (
@@ -120,6 +121,10 @@ export default function App() {
           <div className="footer-logo">
             <RingLogo size={20} />
             <span>Gramo</span>
+          </div>
+          <div className="footer-links">
+            <Link to="/privacy" className="footer-link">Privacy Policy</Link>
+            <Link to="/terms" className="footer-link">Terms of Service</Link>
           </div>
           <span className="footer-copy">Copyright © 2026 Gramo. All rights reserved.</span>
         </div>
