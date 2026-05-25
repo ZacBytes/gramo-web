@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#000000"/>
+  <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#FF6B00" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <!-- App icon centred at 600, 240 -->
+  <rect x="516" y="156" width="168" height="168" rx="38" fill="#111111"/>
+  <rect x="556" y="214" width="88" height="22" rx="11" fill="#ffffff"/>
+  <rect x="556" y="248" width="88" height="22" rx="11" fill="#ffffff"/>
+  <!-- Wordmark -->
+  <text x="600" y="410" text-anchor="middle"
+    font-family="-apple-system, Helvetica Neue, Arial, sans-serif"
+    font-size="80" font-weight="700" fill="#f5f5f7" letter-spacing="-2">Gramo</text>
+  <!-- Tagline -->
+  <text x="600" y="470" text-anchor="middle"
+    font-family="-apple-system, Helvetica Neue, Arial, sans-serif"
+    font-size="26" font-weight="400" fill="#555555">AI macro tracker · gramo.space</text>
+</svg>
