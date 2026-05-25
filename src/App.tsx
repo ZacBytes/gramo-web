@@ -1,19 +1,18 @@
 import { Link } from "react-router-dom";
 import "./App.css";
 
-const RingLogo = ({ size = 96 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="48" cy="48" r="38" stroke="white" strokeWidth="5" strokeOpacity="0.08"/>
-    <circle
-      cx="48" cy="48" r="38"
-      stroke="#FF6B00" strokeWidth="5" strokeLinecap="round"
-      strokeDasharray="179" strokeDashoffset="45"
-      transform="rotate(-90 48 48)"
-    />
-    <text x="48" y="56" textAnchor="middle"
-      fontFamily="-apple-system, 'SF Pro Rounded', 'Helvetica Neue', sans-serif"
-      fontSize="38" fontWeight="700" fill="white" letterSpacing="-1">G</text>
-  </svg>
+const AppIcon = ({ size = 96 }: { size?: number }) => (
+  <img
+    src="/app-icon.png"
+    alt="Gramo"
+    width={size}
+    height={size}
+    style={{
+      borderRadius: `${size * 0.2237}px`,
+      boxShadow: `0 ${size * 0.08}px ${size * 0.22}px rgba(0,0,0,0.55), 0 ${size * 0.02}px ${size * 0.06}px rgba(0,0,0,0.35)`,
+      display: "block",
+    }}
+  />
 );
 
 const features = [
@@ -60,7 +59,7 @@ export default function App() {
       {/* Nav */}
       <nav className="nav">
         <div className="nav-logo">
-          <RingLogo size={28} />
+          <AppIcon size={28} />
           <span className="nav-name">Gramo</span>
         </div>
         <span className="nav-badge">Coming to iPhone</span>
@@ -69,7 +68,7 @@ export default function App() {
       {/* Hero */}
       <section className="hero">
         <div className="hero-logo">
-          <RingLogo size={120} />
+          <AppIcon size={120} />
         </div>
 
         <h1 className="hero-title">
@@ -119,7 +118,7 @@ export default function App() {
       <footer className="footer">
         <div className="footer-inner">
           <div className="footer-logo">
-            <RingLogo size={20} />
+            <AppIcon size={20} />
             <span>Gramo</span>
           </div>
           <div className="footer-links">
