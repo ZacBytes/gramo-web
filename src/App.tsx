@@ -2,16 +2,23 @@ import { Link } from "react-router-dom";
 import "./App.css";
 
 const AppIcon = ({ size = 96 }: { size?: number }) => (
-  <img
-    src="/app-icon.png"
-    alt="Gramo"
-    width={size}
-    height={size}
-    style={{
-      borderRadius: `${size * 0.2237}px`,
-      display: "block",
-    }}
-  />
+  <div style={{
+    width: size,
+    height: size,
+    borderRadius: `${size * 0.2237}px`,
+    overflow: "hidden",
+    isolation: "isolate",
+    transform: "translateZ(0)",
+    flexShrink: 0,
+  }}>
+    <img
+      src="/app-icon.png"
+      alt="Gramo"
+      width={size}
+      height={size}
+      style={{ display: "block" }}
+    />
+  </div>
 );
 
 const features = [
