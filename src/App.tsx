@@ -9,7 +9,6 @@ const AppIcon = ({ size = 96 }: { size?: number }) => (
     height={size}
     style={{
       borderRadius: `${size * 0.2237}px`,
-      boxShadow: `0 ${size * 0.08}px ${size * 0.22}px rgba(0,0,0,0.55), 0 ${size * 0.02}px ${size * 0.06}px rgba(0,0,0,0.35)`,
       display: "block",
     }}
   />
